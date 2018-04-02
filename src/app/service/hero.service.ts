@@ -14,7 +14,7 @@ const httpOptions = {
 export class HeroService {
   private heroesUrl = 'api/heroes';  // URL to web api
 
-  constructor(private http: HttpClient,
+  constructor(private httpClient: HttpClient,
               private messageService: MessageService) {}
 
   /** 'Observable' and 'of' allows to call a service and wait for the response, it is used for asynchronous call */
@@ -22,7 +22,7 @@ export class HeroService {
     // send the message after fetching the heroes
     this.messageService.add('HeroService: fetched heroes');
 
-    return this.http.get<Hero[]>(this.heroesUrl)
+    return this.httpClient.get<Hero[]>(this.heroesUrl)
       .pipe(
         tap(heroes => this.log('fetched heroes')),
         catchError(this.handleError('getHeroes', []))
@@ -35,7 +35,7 @@ export class HeroService {
     this.messageService.add(`HeroService: fetched hero id=${id}`);
 
     const url = `${this.heroesUrl}/${id}`;
-    return this.http.get<Hero>(url).pipe(
+    return this.httpClient.get<Hero>(url).pipe(
       tap(hero => this.log(`fetched hero id=${id}`)),
       catchError(this.handleError<Hero>(`getHero id=${id}`))
     );
@@ -46,7 +46,7 @@ export class HeroService {
     // send the message after adding the hero
     this.messageService.add(`HeroService: added hero id=${hero.id}`);
 
-    return this.http.post<Hero>(this.heroesUrl, hero, httpOptions).pipe(
+    return this.httpClient.post<Hero>(this.heroesUrl, hero, httpOptions).pipe(
       tap(postHero => this.log(`added hero id=${hero.id}`)),
       catchError(this.handleError<Hero>('addHero'))
     );
@@ -57,7 +57,7 @@ export class HeroService {
     // send the message after updating the hero
     this.messageService.add(`HeroService: updated hero id=${hero.id}`);
 
-    return this.http.put(this.heroesUrl, hero, httpOptions).pipe(
+    return this.httpClient.put(this.heroesUrl, hero, httpOptions).pipe(
       tap(putHero => this.log(`updated hero id=${hero.id}`)),
       catchError(this.handleError<any>('updateHero'))
     );
@@ -72,7 +72,7 @@ export class HeroService {
 
     const url = `${this.heroesUrl}/${id}`;
 
-    return this.http.delete<Hero>(url, httpOptions).pipe(
+    return this.httpClient.delete<Hero>(url, httpOptions).pipe(
       tap(deleteHero => this.log(`deleted hero id=${id}`)),
       catchError(this.handleError<Hero>('deleteHero'))
     );
@@ -85,7 +85,7 @@ export class HeroService {
       return of([]);
     }
 
-    return this.http.get<Hero[]>(`api/heroes/?name=${term}`).pipe(
+    return this.httpClient.get<Hero[]>(`api/heroes/?name=${term}`).pipe(
       tap(searchHeroes => this.log(`found heroes matching "${term}"`)),
       catchError(this.handleError<Hero[]>('searchHeroes', []))
     );
