@@ -25,3 +25,35 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## _`Commands used for the project`_
+
+//creates new project
+cd C:\Users\victor\Documents\IdeaProjects\  
+ng new angularTest  
+
+cd C:\Users\victor\Documents\IdeaProjects\angularHeroes  
+
+// start server  
+ng serve --open
+
+// build the project  
+ng build
+
+// creates a component  
+ng generate component heroes  
+ng generate component hero-detail  
+ng generate component messages  
+ng generate component dashboard  
+ng generate component hero-search  
+
+// creates a service  
+ng generate service hero --module=app  
+ng generate service message --module=app  
+ng generate service in-memory-data --module=app  
+
+// creates a module for routing  
+ng generate module app-routing --flat --module=app  
+
+// Install the In-memory Web API package from npm  
+npm i --save angular-in-memory-web-api@0.5.0 --save  
