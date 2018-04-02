@@ -8,18 +8,22 @@ import { FormsModule } from '@angular/forms';
 import { HeroDetailComponent } from './component/hero-detail/hero-detail.component';
 import {HeroService} from './service/hero.service';
 import { MessagesComponent } from './component/messages/messages.component';
-import { MessageService } from './service/message.service'; // <-- NgModel lives here
+import { MessageService } from './service/message.service';
+import { AppRoutingModule } from './app-routing.module';
+import { DashboardComponent } from './component/dashboard/dashboard.component'; // <-- NgModel lives here
 
 @NgModule({
   declarations: [
     AppComponent,
     HeroesComponent,
     HeroDetailComponent,
-    MessagesComponent
+    MessagesComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule
   ],
   providers: [
     HeroService,

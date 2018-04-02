@@ -7,30 +7,38 @@ import {MessageService} from './message.service';
 @Injectable()
 export class HeroService {
 
-  constructor(private messageService: MessageService) { }
+  // mocked heroes
+  heroesList: Hero[] = [
+    { id: 1, name: 'Victor' },
+    { id: 2, name: 'Dubraska' },
+    { id: 3, name: 'Luis' },
+    { id: 4, name: 'Maria' },
+    { id: 5, name: 'Pedro' },
+    { id: 6, name: 'Andres' },
+    { id: 7, name: 'Jose' },
+    { id: 8, name: 'Juan' }
+  ];
 
-  // 'Observable' and 'of' allows the service to be called and wait for the response, it is an asynchronous call
+  constructor(private messageService: MessageService) {}
+
+  // 'Observable' and 'of' allows to call a service and wait for the response, it is used for asynchronous call
   getHeroes(): Observable<Hero[]> {
-    // message when fetching the heroes
+    // this will be equals to the response of the server
+    const heroesList: Hero[] = this.heroesList;
+
+    // send the message after fetching the heroes
     this.messageService.add('HeroService: fetched heroes');
 
-    return of(this.buildHeroes());
+    return of(heroesList);
   }
 
-  // uses when returning synchronous data, i.e: a mock
-  // getHeroes(): Hero[] {
-  //   return this.buildHeroes();
-  // }
+  getHero(id: number): Observable<Hero> {
+    // this will be equals to the response of the server
+    const heroesList: Hero[] = this.heroesList;
 
-  // mock heroes
-  buildHeroes(): Hero[] {
-    return [
-      { id: 1, name: 'Victor' },
-      { id: 2, name: 'Dubraska' },
-      { id: 3, name: 'Luis' },
-      { id: 4, name: 'Maria' },
-      { id: 5, name: 'Pedro' }
-    ];
+    // send the message after fetching the hero
+    this.messageService.add('HeroService: fetched hero id=${id}');
+
+    return of(heroesList.find(hero => hero.id === id));
   }
-
 }
